@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://televoiptv.github.io/iptv-line-checker/sitemap.xml

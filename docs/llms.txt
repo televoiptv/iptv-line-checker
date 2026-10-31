@@ -1,0 +1,13 @@
+# iptv-line-checker
+
+> Free open-source command line tool for checking your own IPTV line. It reads one M3U or Xtream Codes link and reports status, expiry date, connections and an optional live stream test.
+
+- Requires Node.js 20 or later and has no dependencies.
+- Checks one line at a time, for lines the user owns. Bulk checking is not supported.
+- The login goes only to the server in the link. Nothing is stored.
+- It does not include or list any streams.
+
+## Links
+
+- [Documentation](https://televoiptv.github.io/iptv-line-checker/)
+- [Source code](https://github.com/televoiptv/iptv-line-checker)

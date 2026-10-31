@@ -1,0 +1,13 @@
+{
+  "name": "iptv-line-checker",
+  "version": "0.1.0",
+  "description": "Check your own Xtream Codes or M3U IPTV line from the terminal: status, expiry date, connections and an optional stream test.",
+  "type": "module",
+  "bin": { "iptv-line-checker": "bin/cli.js" },
+  "exports": "./src/index.js",
+  "files": ["bin", "src"],
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test" },
+  "keywords": ["iptv", "xtream-codes", "m3u", "cli", "diagnostics", "troubleshooting"],
+  "license": "MIT"
+}
