@@ -3,62 +3,452 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IPTV Line Checker: Test an M3U or Xtream Line</title>
-<meta name="description" content="Free open-source command line tool to check your own IPTV line: status, expiry date, connections and a live stream test.">
+<title>IPTV Line Checker: Check Status, Expiry and Connections</title>
+<meta name="description" content="Free open-source tool to check your own IPTV line. See if an M3U or Xtream Codes login is active, when it expires, connections in use, and fix common faults.">
 <link rel="canonical" href="https://televoiptv.github.io/iptv-line-checker/">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
-<meta property="og:title" content="IPTV Line Checker">
-<meta property="og:description" content="Check your own M3U or Xtream Codes line from the terminal.">
+<meta property="og:title" content="IPTV Line Checker: Status, Expiry and Connections">
+<meta property="og:description" content="Check your own M3U or Xtream Codes line and find out whether a fault is your account, the server or your setup.">
 <meta property="og:url" content="https://televoiptv.github.io/iptv-line-checker/">
+<meta property="og:image" content="https://televoiptv.github.io/iptv-line-checker/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="IPTV Line Checker showing an active line with its expiry date and connections">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"SoftwareApplication","name":"iptv-line-checker","applicationCategory":"DeveloperApplication","operatingSystem":"Windows, macOS, Linux","softwareRequirements":"Node.js 20 or later","license":"https://opensource.org/license/mit","codeRepository":"https://github.com/televoiptv/iptv-line-checker","url":"https://televoiptv.github.io/iptv-line-checker/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
-{"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"How do I check if my IPTV line is active?","acceptedAnswer":{"@type":"Answer","text":"Run the tool, paste your M3U or Xtream Codes link, and it shows the status and expiry date the server reports."}},
-{"@type":"Question","name":"Where does my login go?","acceptedAnswer":{"@type":"Answer","text":"Only to the server named in your link. The tool stores nothing and never prints the password."}},
-{"@type":"Question","name":"Can it check many lines at once?","acceptedAnswer":{"@type":"Answer","text":"No. It takes one line at a time and is only for lines you own."}}
-]}]}
+{
+"@context": "https://schema.org",
+"@graph": [
+{
+"@type": "SoftwareApplication",
+"@id": "https://televoiptv.github.io/iptv-line-checker/#app",
+"name": "IPTV Line Checker",
+"alternateName": "iptv-line-checker",
+"description": "Free open-source command line tool that checks your own M3U or Xtream Codes IPTV line: status, expiry date, connections and a live stream test.",
+"applicationCategory": "UtilitiesApplication",
+"operatingSystem": "Windows, macOS, Linux",
+"softwareRequirements": "Node.js 20 or later",
+"softwareVersion": "0.1.0",
+"license": "https://opensource.org/license/mit",
+"downloadUrl": "https://github.com/televoiptv/iptv-line-checker/archive/refs/heads/main.zip",
+"url": "https://televoiptv.github.io/iptv-line-checker/",
+"image": "https://televoiptv.github.io/iptv-line-checker/images/og.png",
+"screenshot": "https://televoiptv.github.io/iptv-line-checker/images/result-active.webp",
+"offers": {
+"@type": "Offer",
+"price": "0",
+"priceCurrency": "USD"
+}
+},
+{
+"@type": "SoftwareSourceCode",
+"name": "iptv-line-checker",
+"codeRepository": "https://github.com/televoiptv/iptv-line-checker",
+"programmingLanguage": "JavaScript",
+"runtimePlatform": "Node.js",
+"license": "https://opensource.org/license/mit",
+"targetProduct": {
+"@id": "https://televoiptv.github.io/iptv-line-checker/#app"
+}
+},
+{
+"@type": "WebPage",
+"@id": "https://televoiptv.github.io/iptv-line-checker/",
+"url": "https://televoiptv.github.io/iptv-line-checker/",
+"name": "IPTV Line Checker",
+"datePublished": "2026-10-31",
+"dateModified": "2026-10-31",
+"inLanguage": "en",
+"primaryImageOfPage": "https://televoiptv.github.io/iptv-line-checker/images/result-active.webp",
+"mainEntity": {
+"@id": "https://televoiptv.github.io/iptv-line-checker/#app"
+}
+},
+{
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Is the IPTV line checker free?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes. It is free and open source under the MIT licence, with no sign up, adverts or account."
+}
+},
+{
+"@type": "Question",
+"name": "How do I check if my IPTV line is active?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Run the tool, paste your M3U or Xtream Codes link, and it shows the status and expiry date the server reports."
+}
+},
+{
+"@type": "Question",
+"name": "Can it tell me my IPTV expiry date?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes, if your provider's panel is Xtream Codes compatible and reports a date. The tool shows it on the Expires line in UTC."
+}
+},
+{
+"@type": "Question",
+"name": "Does it work with an M3U link?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes, if the link contains a username and password and the panel is Xtream Codes compatible. A plain playlist link with no login cannot be checked."
+}
+},
+{
+"@type": "Question",
+"name": "Does it work with MAC address or Stalker portal logins?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "No. It only works with M3U links and Xtream Codes logins on compatible panels."
+}
+},
+{
+"@type": "Question",
+"name": "Where does my login go?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Only to the server named in your link. The tool stores nothing and never prints the password."
+}
+},
+{
+"@type": "Question",
+"name": "Can it check many lines at once?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "No. It takes one line at a time and is only for lines you own."
+}
+},
+{
+"@type": "Question",
+"name": "Will running it use one of my connections?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "The account check does not start a stream. The stream test with --probe uses one connection for a moment."
+}
+},
+{
+"@type": "Question",
+"name": "Can it check whether a playlist has working channels?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Only partly. The stream test checks the first live channel, so it cannot prove that every channel works."
+}
+},
+{
+"@type": "Question",
+"name": "Why does the line show as active when my TV won't play anything?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Active means the account is in good standing. The fault is then more likely to be the app, the device, your home network or a server problem affecting streams. Use the stream test and the troubleshooting steps on this page."
+}
+},
+{
+"@type": "Question",
+"name": "Does the tool give me channels or a free IPTV line?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "No. It does not include or list any streams. It only checks a line you already have."
+}
+}
+]
+}
+]
+}
 </script>
 <style>
-:root{color-scheme:light dark;--bg:#fff;--text:#1a1c23;--muted:#555b6a;--code:#f2f3f7}
-@media (prefers-color-scheme:dark){:root{--bg:#101217;--text:#eceef4;--muted:#a5abba;--code:#1c1f28}}
+:root{color-scheme:light dark;--bg:#fff;--text:#1a1c23;--muted:#555b6a;--code:#f2f3f7;--line:#dfe2e8;--accent:#1f4fd1;--tip:#eef3ff}
+@media (prefers-color-scheme:dark){:root{--bg:#101217;--text:#eceef4;--muted:#a5abba;--code:#1c1f28;--line:#2c303b;--accent:#8db0ff;--tip:#182033}}
 *{box-sizing:border-box}
-body{margin:0 auto;max-width:720px;padding:32px 16px;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-h1{font-size:2rem;line-height:1.2;margin:0 0 12px}
-h2{font-size:1.3rem;margin:32px 0 8px}
-p,li{color:var(--text)}
-footer{margin-top:40px;color:var(--muted);font-size:.9rem}
-pre{background:var(--code);padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:780px;padding:32px 16px;background:var(--bg);color:var(--text);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:break-word}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 12px}
+h2{font-size:1.45rem;line-height:1.3;margin:48px 0 10px;scroll-margin-top:16px}
+h3{font-size:1.1rem;margin:26px 0 6px}
+a{color:var(--accent)}
+.meta,footer,figcaption{color:var(--muted);font-size:.9rem}
+.answer,.note{background:var(--tip);border-radius:10px;padding:14px 16px;margin:18px 0}
+.answer p,.note p{margin:0}
+pre{background:var(--code);padding:14px;border-radius:8px;overflow-x:auto;font-size:.88rem;line-height:1.5}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+:not(pre)>code{background:var(--code);padding:1px 5px;border-radius:4px}
+p code,li code{white-space:nowrap}
+td code{white-space:normal}
+figure{margin:22px 0}
+img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line)}
+figcaption{margin-top:6px}
+.table{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.93rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+nav ol{columns:2;column-gap:28px;padding-left:20px;margin:8px 0;font-size:.95rem}
+li{margin:4px 0}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line)}
+@media (max-width:560px){body{font-size:16px}h1{font-size:1.7rem}nav ol{columns:1}}
 </style>
 </head>
 <body>
 <main>
 <h1>IPTV Line Checker</h1>
-<p>A free, open-source command line tool that checks your own IPTV line. Paste one M3U or Xtream Codes link to see whether the fault is your account or something else.</p>
+<p class="meta">Free, open source and MIT licensed · Updated 31 October 2026</p>
 
-<h2>What does it check?</h2>
-<ul>
-<li>Whether the line is active, expired, banned or disabled</li>
-<li>The expiry date and trial status</li>
-<li>Connections in use and the connection limit</li>
-<li>Whether the first live stream sends data, with <code>--probe</code></li>
-</ul>
+<div class="answer"><p><strong>How do I check my IPTV line?</strong> Run this free tool on a computer and paste your M3U link or Xtream Codes details. It asks your provider's server for your account record, then shows whether the line is active, when it expires, how many connections are in use and, with <code>--probe</code>, whether a live stream sends data. That tells you if a fault is your account, the server or your own setup.</p></div>
 
-<h2>How do I run it?</h2>
-<pre><code>git clone https://github.com/televoiptv/iptv-line-checker.git
+<figure>
+<img src="images/result-active.webp" width="1600" height="600" alt="Terminal showing the tool's result for an active IPTV line: active, expires 1 March 2027, not a trial, 1 of 2 connections in use, stream sending data" fetchpriority="high">
+<figcaption>Example result. All terminal images on this page are real tool output from a local test panel, with the placeholder address tv.example.</figcaption>
+</figure>
+
+<nav aria-label="On this page">
+<strong>On this page</strong>
+<ol>
+<li><a href="#run">How to run it</a></li>
+<li><a href="#results">What each result means</a></li>
+<li><a href="#find-link">Finding your link or login</a></li>
+<li><a href="#formats">M3U, Xtream Codes or MAC portal</a></li>
+<li><a href="#expiry">Checking your expiry date</a></li>
+<li><a href="#connections">Connections explained</a></li>
+<li><a href="#troubleshoot">Fixing common faults</a></li>
+<li><a href="#privacy">Privacy and safety</a></li>
+<li><a href="#limits">What it cannot tell you</a></li>
+<li><a href="#legal">Is IPTV legal?</a></li>
+<li><a href="#reference">Technical reference</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+</nav>
+
+<h2 id="run">How do I run the IPTV line checker?</h2>
+<p>You need a Windows, Mac or Linux computer with <a href="https://nodejs.org/en/download" rel="noopener">Node.js</a> version 20 or later. The tool has no other dependencies. You do not need any coding knowledge, only the five steps below.</p>
+<ol>
+<li><strong>Install Node.js.</strong> Download the LTS version from nodejs.org and accept the defaults.</li>
+<li><strong>Download the tool.</strong> Get the <a href="https://github.com/televoiptv/iptv-line-checker/archive/refs/heads/main.zip">ZIP file</a> and extract it.</li>
+<li><strong>Open a terminal in that folder.</strong> On Windows, open the extracted folder, right click an empty space and choose Open in Terminal. On a Mac, right click the folder and choose New Terminal at Folder. If that option is missing, turn it on in System Settings under Keyboard, Keyboard Shortcuts, Services.</li>
+<li><strong>Start the check.</strong> Type the command below and press Enter.</li>
+<li><strong>Paste your link</strong> when it asks, then press Enter. The result appears within seconds.</li>
+</ol>
+<pre><code>node bin/cli.js --probe</code></pre>
+<p>If you have Git installed, either of these does the same job:</p>
+<pre><code># Run it without keeping a copy
+npx github:televoiptv/iptv-line-checker --probe
+
+# Or clone the source
+git clone https://github.com/televoiptv/iptv-line-checker.git
 cd iptv-line-checker
 node bin/cli.js --probe</code></pre>
-<p>You need Node.js 20 or later. The tool has no dependencies and asks for your link, so your password stays out of your shell history.</p>
+<p>The tool asks for your link rather than taking it as part of the command, so your password stays out of your shell history. The link does stay visible on screen after you paste it, so close the terminal if anyone else can see it.</p>
+<h3>Can I run it on a Fire Stick, phone or smart TV?</h3>
+<p>No. It needs Node.js, so use a computer. That still gives you a useful answer, because your expiry date, status and connection limit are held on the server, not on your TV. Stream results can differ, because a computer may reach the server differently from your TV. For the closest match, use the same home network.</p>
+<h3>Why is it not a website?</h3>
+<p>A web page on a secure HTTPS site cannot directly call most IPTV panels, because they use plain HTTP and browsers block that. Online checkers get around this by sending your login through their own server. Running the tool on your computer avoids that middle step.</p>
 
-<h2>Where does my login go?</h2>
-<p>Only to the server named in your link. The tool stores nothing and never prints the password. Many panels only offer plain HTTP, so the login can travel unencrypted, as it does in your IPTV app.</p>
+<h2 id="results">What does each result mean?</h2>
+<p>If the server answers, the tool shows one of the results in the first table. If it cannot get an answer, it shows one of the messages in the second table.</p>
+<figure>
+<img src="images/results-compare.webp" width="1600" height="830" alt="Four terminal results side by side: expired line, banned line, rejected username and password, and a server that did not answer in time" loading="lazy">
+<figcaption>The four results people see most often when something is wrong.</figcaption>
+</figure>
+<h3>When the server answers</h3>
+<div class="table"><table>
+<thead><tr><th>Tool message</th><th>What it means</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>The line is active.</td><td>The server accepted the login and the account is in good standing.</td><td>If it still fails in your app, see <a href="#troubleshoot">common faults</a>.</td></tr>
+<tr><td>The line has expired.</td><td>The status says expired, or the expiry date has passed.</td><td>Renew with your provider. Reinstalling apps will not help.</td></tr>
+<tr><td>The provider has banned this line.</td><td>The provider blocked the account. Sharing a login beyond its limit is a common reason.</td><td>Ask the provider why.</td></tr>
+<tr><td>The provider has disabled this line.</td><td>The account is switched off, possibly for a short time.</td><td>Ask the provider why.</td></tr>
+<tr><td>The line is not active.</td><td>The server reported some other status.</td><td>Ask the provider what the status means.</td></tr>
+<tr><td>The server rejected this username and password.</td><td>The login does not match an account on this server.</td><td>Recheck for typos and extra spaces. If you copied it correctly, ask whether your details or server changed.</td></tr>
+</tbody></table></div>
+<h3>When the check cannot finish</h3>
+<div class="table"><table>
+<thead><tr><th>Tool message</th><th>Likely cause</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>No login found in that link.</td><td>The link has no username and password. Short links and portal URLs do this.</td><td>Paste the full link, or build one as shown <a href="#find-link">below</a>.</td></tr>
+<tr><td>The server did not answer in time.</td><td>The server is slow or overloaded, or something on the route is dropping traffic.</td><td>Try <code>--timeout 30</code>, then test from another network.</td></tr>
+<tr><td>Could not connect to the server.</td><td>Wrong address or port, server down, or the network is blocking it.</td><td>Check the address and port, then try another network.</td></tr>
+<tr><td>The server did not answer like an Xtream Codes panel.</td><td>The server replied, but not with account data. It may be another panel type.</td><td>This tool cannot read that panel. Ask the provider for your status.</td></tr>
+<tr><td>The server answered with HTTP 503.</td><td>The number varies. 5xx codes mean a server side fault. 404 usually means the address is wrong or the panel has no Xtream API.</td><td>Wait and retry for 5xx codes. Check the address for 404.</td></tr>
+</tbody></table></div>
+<h3>Stream test messages</h3>
+<p>The <code>--probe</code> option only runs when the line is active. It asks for the first live channel and reads the first bytes.</p>
+<div class="table"><table>
+<thead><tr><th>Tool message</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td>Sending data</td><td>The server sent video data for that channel. Your account can stream.</td></tr>
+<tr><td>The line has no live streams to test.</td><td>The account has no live channels attached. Ask the provider to check your package.</td></tr>
+<tr><td>The stream connected but sent no data.</td><td>The server accepted the request but sent nothing. That channel may be down.</td></tr>
+<tr><td>The server answered with HTTP 403.</td><td>The server refused the stream. You may be at your connection limit, so stop other streams and retest. The number can vary.</td></tr>
+<tr><td>The server did not answer in time. / The stream test failed.</td><td>The stream could not be read. Retest, then send the result to your provider.</td></tr>
+</tbody></table></div>
 
-<h2>Can it check many lines at once?</h2>
-<p>No. It takes one line at a time and is only for lines you own. It does not include or list any streams.</p>
+<h2 id="find-link">Where do I find my M3U link or Xtream Codes login?</h2>
+<p>Your provider gives you these details when you sign up, usually by email or message. If you cannot find them, look in your IPTV app's playlist or account settings, because many apps show the server and username there. If not, ask your provider to send them again.</p>
+<figure>
+<img src="images/link-anatomy.webp" width="1600" height="560" alt="An M3U link split into its three parts: the server URL http://tv.example:8080, the username and the password" loading="lazy">
+<figcaption>An M3U link and an Xtream Codes login hold the same three details.</figcaption>
+</figure>
+<p>Only have a server, username and password? Paste them into this pattern and use the result as your link. Keep your server's own port number.</p>
+<pre><code>http://YOUR-SERVER:PORT/get.php?username=YOUR-NAME&amp;password=YOUR-PASSWORD</code></pre>
+<p>The tool also accepts a <code>player_api.php</code> link and a single stream link, such as <code style="white-space:normal;word-break:break-all">http://tv.example:8080/live/name/pass/123.ts</code>. It cannot read short links such as bit.ly addresses, because they do not contain a login.</p>
 
-<h2>What are its limits?</h2>
-<p>The account check only works with Xtream Codes compatible panels. The stream test covers one channel, so it can't prove that every channel works.</p>
+<h2 id="formats">What is the difference between M3U, Xtream Codes and a MAC portal?</h2>
+<p>All three are ways of connecting an app to an IPTV service. An M3U link is a playlist, an Xtream Codes login is an account, and a MAC portal ties the service to one device.</p>
+<div class="table"><table>
+<thead><tr><th></th><th>M3U link</th><th>Xtream Codes</th><th>MAC or Stalker portal</th></tr></thead>
+<tbody>
+<tr><th>What you enter</th><td>One long URL</td><td>Server, username, password</td><td>Portal URL and device MAC address</td></tr>
+<tr><th>What it is</th><td>A text list of channels and their stream addresses</td><td>A login for a panel API that apps can query</td><td>A login tied to one device's address</td></tr>
+<tr><th>Typical use</th><td>Almost any IPTV player</td><td>Apps with separate live, film and series sections</td><td>MAG boxes and apps that emulate them</td></tr>
+<tr><th>Updates</th><td>App must reload the list</td><td>App asks the panel each time</td><td>App asks the portal each time</td></tr>
+<tr><th>Works with this tool</th><td>Yes, if the link has a login and the panel is Xtream compatible</td><td>Yes</td><td>No</td></tr>
+</tbody></table></div>
+<p>"Xtream Codes" began as the name of one panel product. Today it mostly describes a login format that many panels still use, so an Xtream login can work even if your provider uses different software.</p>
+
+<h2 id="expiry">How do I check when my IPTV subscription expires?</h2>
+<p>Look at the <code>Expires</code> line in the result. It comes straight from the server, so it is more reliable than a date you were told at sign up.</p>
+<p>The date uses a format called ISO 8601 and is in UTC, shown by the Z at the end. For example, <code>2027-03-01T00:00:00.000Z</code> means midnight UTC at the start of 1 March 2027. In the United States, that is still the evening of 28 February.</p>
+<p>"No expiry date" means the server did not give a date. It does not always mean the line lasts forever, so confirm the term with your provider. "Trial: Yes" means the panel has marked it as a trial account, which usually has a short end date.</p>
+
+<h2 id="connections">What does the connection count mean?</h2>
+<p>Connections are the streams playing at the same time on your line. The result "1 of 2" means one stream is in use and your limit is two. You can usually install the app on more devices than your limit, as long as they don't all play at once.</p>
+<figure>
+<img src="images/connections.webp" width="1600" height="560" alt="Diagram of a two connection line: a TV and a tablet use both connections, so a phone is refused or pushes another stream off" loading="lazy">
+<figcaption>What happens when a third stream starts on a two connection line depends on the panel.</figcaption>
+</figure>
+<ul>
+<li><strong>Connections shown when nothing is playing:</strong> an app that closed badly can hold a connection for a short time. Wait a few minutes and run the check again. Some panels take longer.</li>
+<li><strong>Still shows a connection you don't recognise:</strong> your login may be in use somewhere else. Ask your provider to change your password.</li>
+<li><strong>Running the stream test:</strong> <code>--probe</code> uses one connection briefly. On a full line it may fail, so stop other streams first.</li>
+</ul>
+
+<h2 id="troubleshoot">Why is my IPTV not working?</h2>
+<p>Most IPTV faults fall into three groups: the account, the server or your own setup. Run the check first, because it rules out whole groups in seconds and could save you hours of reinstalling apps.</p>
+<figure>
+<img src="images/flowchart.webp" width="1600" height="1120" alt="Flowchart. If the server does not answer, suspect the server or network. If the line is not active, it is an account problem. If connections are full, stop a stream. If the stream sends no data, contact the provider. If all pass, look at the app, device or home network." loading="lazy">
+<figcaption>Work down the checks in order and stop at the first No.</figcaption>
+</figure>
+<p>If the check passes but something still goes wrong on your TV, look up the symptom here.</p>
+<h3>IPTV keeps buffering or freezing</h3>
+<ul>
+<li>Run a speed test on the device itself, not your phone. As a rough guide, allow about 10 Mbps for each HD stream and 25 Mbps for each 4K stream.</li>
+<li>Use an Ethernet cable if you can, or the 5 GHz Wi-Fi band. Fire Stick and TV Wi-Fi is often the weak point.</li>
+<li>Restart the router and the device, then stop anything else using the connection.</li>
+<li>Note whether all channels buffer or only one. One channel points to that channel's source. All channels at the same time of day, often at peak evening hours or during big live events, points to server load or your network.</li>
+<li>Try a lower quality version of the channel, or switch the stream format in your app between TS and HLS.</li>
+</ul>
+<h3>The channel list is empty or will not load</h3>
+<ul>
+<li>Reload or update the playlist in your app. Old copies are a common cause after a provider changes something.</li>
+<li>Check the app's server address and port match your link exactly, including <code>http://</code>.</li>
+<li>Remove the playlist and add it again, or clear the app's cache.</li>
+<li>Very large M3U lists can overwhelm older devices. If your app supports Xtream login, use that instead.</li>
+</ul>
+<h3>The TV guide (EPG) is blank or wrong</h3>
+<ul>
+<li>EPG is a separate data feed, so channels can play even when the guide is empty.</li>
+<li>Update the EPG in your app settings, then allow time for it to download.</li>
+<li>Xtream panels often offer a guide at <code style="white-space:normal;word-break:break-all">http://YOUR-SERVER:PORT/xmltv.php?username=YOUR-NAME&amp;password=YOUR-PASSWORD</code>. Add it as the EPG source if your app needs one.</li>
+<li>If the times are off by an hour or more, check your device's time zone and the app's EPG time shift setting. This often happens after the clocks change.</li>
+</ul>
+<h3>Authentication failed in my app</h3>
+<p>If the tool says the line is active with the same details, the login is fine, so the problem is in the app. Retype the details by hand, watch for confusion between O and 0 or l and I, and remove any space at the end. Then check that the server address in the app is the current one.</p>
+<h3>Black screen, or picture with no sound</h3>
+<ul>
+<li>Change the player or decoder in your app's settings. Try software decoding, or another built-in player.</li>
+<li>Try other channels. If only one is affected, the fault is probably that channel, not your setup.</li>
+<li>No sound on some channels usually means your device cannot decode that audio format. Switching decoder often fixes it.</li>
+</ul>
+<h3>It works on one device but not another</h3>
+<p>Your account is fine, so compare the two devices. Update the app on the failing one, check its date and time are correct, and copy the working login across exactly.</p>
+<h3>It works on mobile data but not on home Wi-Fi</h3>
+<p>The difference is your home network or broadband provider. Restart the router first. If it still fails, your broadband provider may be filtering that server. In some countries, broadband providers must block servers linked to unlicensed streams by court order. Your IPTV provider should be able to tell you if a server change is needed.</p>
+
+<h2 id="privacy">Is it safe to paste my IPTV link?</h2>
+<p>With this tool, your login goes only to the server named in your link. The tool runs on your computer, stores nothing and never prints your password. You don't have to take that on trust: the <a href="https://github.com/televoiptv/iptv-line-checker/blob/main/src/check.js">request code</a> is short and public.</p>
+<figure>
+<img src="images/how-it-works.webp" width="1600" height="590" alt="Diagram: your computer sends the login to your provider's panel, and the panel returns status, expiry and connections, with nothing in between" loading="lazy">
+<figcaption>The same conversation your IPTV app has with the server.</figcaption>
+</figure>
+<ul>
+<li><strong>Treat your link like a password.</strong> Anyone who has it can use your line, which can fill your connections or get it banned.</li>
+<li><strong>Be careful with online checkers.</strong> A website has to handle your login on its own server, so you are trusting whoever runs it.</li>
+<li><strong>Plain HTTP is not encrypted.</strong> Many panels only offer HTTP, so your login can travel unencrypted, as it already does in your IPTV app. The tool does not change this.</li>
+<li><strong>Hide details when asking for help.</strong> Remove your server address and login before you post a result online.</li>
+</ul>
+
+<h2 id="limits">What can't the checker tell you?</h2>
+<ul>
+<li><strong>It can't prove every channel works.</strong> The stream test covers the first live channel only.</li>
+<li><strong>It can't measure quality.</strong> "Sending data" means data arrived. It does not test buffering over time, picture quality or speed.</li>
+<li><strong>It can't test your TV or app.</strong> It runs on your computer, so a pass does not rule out a problem on the device.</li>
+<li><strong>It can't check MAC portals.</strong> It only works with Xtream Codes compatible panels. A plain playlist URL with no login can't be checked.</li>
+<li><strong>It reports what the server says.</strong> If a panel's data is wrong, the result will be too.</li>
+<li><strong>It can't check many lines.</strong> It takes one line at a time, is only for lines you own, and bulk checking will not be added.</li>
+</ul>
+
+<h2 id="legal">Is IPTV legal, and does this tool show that?</h2>
+<p>IPTV is just a way of delivering TV over the internet, and many licensed services use it. Whether a particular service is legal depends on whether it has the rights to what it shows. This tool does not test that. An active result means a server accepted your login, not that the service is licensed. The tool does not include, list or supply any streams.</p>
+
+<h2 id="reference">Technical reference</h2>
+<div class="table"><table>
+<thead><tr><th>Option</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>--probe</code></td><td>Also test the first live stream. This uses one connection briefly.</td></tr>
+<tr><td><code>--json</code></td><td>Print JSON for scripts.</td></tr>
+<tr><td><code>--timeout &lt;s&gt;</code></td><td>Seconds to wait for each step. The default is 10.</td></tr>
+<tr><td><code>--help</code></td><td>Show help.</td></tr>
+</tbody></table></div>
+<p>Exit codes are <code>0</code> active, <code>1</code> not active and <code>2</code> could not check. To run it without a prompt, set the <code>IPTV_LINE</code> environment variable. The account check calls <code>player_api.php</code> and reads <code>auth</code>, <code>status</code>, <code>exp_date</code>, <code>is_trial</code>, <code>active_cons</code> and <code>max_connections</code> from <code>user_info</code>. The stream test calls <code>get_live_streams</code>, then reads the first bytes of <code style="white-space:normal;word-break:break-all">/live/&lt;user&gt;/&lt;pass&gt;/&lt;id&gt;.ts</code>.</p>
+<pre><code>{
+  "ok": true,
+  "verdict": "active",
+  "expiresAt": "2027-03-01T00:00:00.000Z",
+  "isTrial": false,
+  "maxConnections": 2,
+  "activeConnections": 1,
+  "server": "tv.example:8080",
+  "stream": { "ok": true }
+}</code></pre>
+<p>It also works as a library:</p>
+<pre><code>import { parseLine, checkLine } from "./src/index.js";
+
+const line = parseLine("http://tv.example:8080/get.php?username=me&amp;password=secret");
+console.log(await checkLine(line));</code></pre>
+
+<h2 id="faq">Frequently asked questions</h2>
+<div id="faq-list">
+<h3>Is the IPTV line checker free?</h3>
+<p>Yes. It is free and open source under the MIT licence, with no sign up, adverts or account.</p>
+<h3>How do I check if my IPTV line is active?</h3>
+<p>Run the tool, paste your M3U or Xtream Codes link, and it shows the status and expiry date the server reports.</p>
+<h3>Can it tell me my IPTV expiry date?</h3>
+<p>Yes, if your provider's panel is Xtream Codes compatible and reports a date. The tool shows it on the Expires line in UTC.</p>
+<h3>Does it work with an M3U link?</h3>
+<p>Yes, if the link contains a username and password and the panel is Xtream Codes compatible. A plain playlist link with no login cannot be checked.</p>
+<h3>Does it work with MAC address or Stalker portal logins?</h3>
+<p>No. It only works with M3U links and Xtream Codes logins on compatible panels.</p>
+<h3>Where does my login go?</h3>
+<p>Only to the server named in your link. The tool stores nothing and never prints the password.</p>
+<h3>Can it check many lines at once?</h3>
+<p>No. It takes one line at a time and is only for lines you own.</p>
+<h3>Will running it use one of my connections?</h3>
+<p>The account check does not start a stream. The stream test with --probe uses one connection for a moment.</p>
+<h3>Can it check whether a playlist has working channels?</h3>
+<p>Only partly. The stream test checks the first live channel, so it cannot prove that every channel works.</p>
+<h3>Why does the line show as active when my TV won't play anything?</h3>
+<p>Active means the account is in good standing. The fault is then more likely to be the app, the device, your home network or a server problem affecting streams. Use the stream test and the troubleshooting steps on this page.</p>
+<h3>Does the tool give me channels or a free IPTV line?</h3>
+<p>No. It does not include or list any streams. It only checks a line you already have.</p>
+</div>
 </main>
-<footer><a href="https://github.com/televoiptv/iptv-line-checker">Source code on GitHub</a> · MIT licence</footer>
+<footer>
+<p><a href="https://github.com/televoiptv/iptv-line-checker">Source code on GitHub</a> · <a href="https://github.com/televoiptv/iptv-line-checker/issues">Report a problem</a> · <a href="llms.txt">llms.txt</a> · MIT licence</p>
+<p>This is an independent diagnostic tool and is not linked to any IPTV provider, app or panel.</p>
+</footer>
 </body>
 </html>

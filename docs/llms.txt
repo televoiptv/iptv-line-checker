@@ -1,13 +1,19 @@
-# iptv-line-checker
+# IPTV Line Checker
 
-> Free open-source command line tool for checking your own IPTV line. It reads one M3U or Xtream Codes link and reports status, expiry date, connections and an optional live stream test.
+> Free open-source command line tool for checking your own IPTV line. It reads one M3U or Xtream Codes link and reports status, expiry date, connections and an optional live stream test, so a user can tell whether a fault is the account, the server or their own setup.
 
-- Requires Node.js 20 or later and has no dependencies.
+- Requires Node.js 20 or later and has no dependencies. Runs on Windows, macOS and Linux, not on TVs or Fire Sticks.
 - Checks one line at a time, for lines the user owns. Bulk checking is not supported.
 - The login goes only to the server in the link. Nothing is stored.
-- It does not include or list any streams.
+- Works with Xtream Codes compatible panels only. MAC and Stalker portal logins are not supported.
+- The stream test covers one channel, so it cannot prove that every channel works.
+- It does not include or list any streams, and an active result says nothing about whether a service is licensed.
+- It is independent and not linked to any IPTV provider.
 
 ## Links
 
-- [Documentation](https://televoiptv.github.io/iptv-line-checker/)
+- [Full guide: results, expiry dates, connections and troubleshooting](https://televoiptv.github.io/iptv-line-checker/)
+- [What each result means](https://televoiptv.github.io/iptv-line-checker/#results)
+- [Why IPTV is not working](https://televoiptv.github.io/iptv-line-checker/#troubleshoot)
+- [M3U, Xtream Codes and MAC portals compared](https://televoiptv.github.io/iptv-line-checker/#formats)
 - [Source code](https://github.com/televoiptv/iptv-line-checker)

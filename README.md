@@ -2,6 +2,8 @@
 
 Check your own IPTV line from the terminal. It tells you whether the problem is your account or something else, so you know what to fix before you start reinstalling apps.
 
+**[Full guide with results, expiry dates, connections and troubleshooting](https://televoiptv.github.io/iptv-line-checker/)**
+
 ## What it does
 
 Paste one M3U or Xtream Codes link and it shows:
@@ -20,6 +22,8 @@ git clone https://github.com/televoiptv/iptv-line-checker.git
 cd iptv-line-checker
 node bin/cli.js
 ```
+
+No Git? Download the [ZIP file](https://github.com/televoiptv/iptv-line-checker/archive/refs/heads/main.zip), extract it, open a terminal in that folder and run `node bin/cli.js`.
 
 The tool asks for your link, so your password stays out of your shell history. Example output:
 
@@ -55,7 +59,7 @@ The link goes only to the server inside it. Nothing is stored or sent anywhere e
 
 ## Known limits
 
-- The account check only works with Xtream Codes compatible panels. A plain playlist URL with no login can't be checked.
+- The account check only works with Xtream Codes compatible panels. A plain playlist URL with no login can't be checked, and neither can MAC or Stalker portals.
 - `--probe` tests one channel, so it can't prove that every channel works.
 - Many panels only offer plain HTTP, so your login can travel unencrypted, as it does in your IPTV app.
 

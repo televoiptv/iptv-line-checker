@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://televoiptv.github.io/iptv-line-checker/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://televoiptv.github.io/iptv-line-checker/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/result-active.webp</image:loc></image:image>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/results-compare.webp</image:loc></image:image>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/link-anatomy.webp</image:loc></image:image>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/connections.webp</image:loc></image:image>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/flowchart.webp</image:loc></image:image>
+    <image:image><image:loc>https://televoiptv.github.io/iptv-line-checker/images/how-it-works.webp</image:loc></image:image>
+  </url>
 </urlset>
