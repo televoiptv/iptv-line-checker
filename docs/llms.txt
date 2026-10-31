@@ -8,7 +8,7 @@
 - Works with Xtream Codes compatible panels only. MAC and Stalker portal logins are not supported.
 - The stream test covers one channel, so it cannot prove that every channel works.
 - It does not include or list any streams, and an active result says nothing about whether a service is licensed.
-- It is independent and not linked to any IPTV provider.
+- It works with lines from any provider and is not part of any app or panel. Optional WhatsApp help comes from the maintainer, who also works in the IPTV business.
 
 ## Links
 

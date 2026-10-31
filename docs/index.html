@@ -191,7 +191,23 @@ th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-ali
 th{background:var(--code)}
 nav ol{columns:2;column-gap:28px;padding-left:20px;margin:8px 0;font-size:.95rem}
 li{margin:4px 0}
-footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line)}
+footer{margin-top:56px;padding:16px 0 64px;border-top:1px solid var(--line)}
+.wa{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-size:.95rem;line-height:1.4}
+.wa-btn{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.wa-btn:hover{background:#1ebe5a}
+.wa-btn svg{width:32px;height:32px;fill:currentColor}
+.wa-btn:focus-visible,.wa-panel a:focus-visible,.wa-panel button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wa-tip{background:var(--text);color:var(--bg);padding:7px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.wa-tip[hidden],.wa-panel[hidden]{display:none}
+.wa-panel{width:min(320px,calc(100vw - 32px));max-height:calc(100vh - 110px);overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.wa-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wa-head strong{font-size:1rem}
+.wa-panel button{width:32px;height:32px;border:0;background:none;color:var(--muted);font-size:1.4rem;line-height:1;cursor:pointer}
+.wa-panel p{margin:4px 0 10px;color:var(--muted);font-size:.88rem}
+.wa-panel a{display:block;padding:9px 11px;margin:6px 0;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none}
+.wa-panel a:hover{border-color:#25d366}
+.wa-panel .wa-warn{margin:10px 0 0;color:var(--text)}
+@media print{.wa{display:none}}
 @media (max-width:560px){body{font-size:16px}h1{font-size:1.7rem}nav ol{columns:1}}
 </style>
 </head>
@@ -235,6 +251,7 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line)}
 <li><strong>Paste your link</strong> when it asks, then press Enter. The result appears within seconds.</li>
 </ol>
 <pre><code>node bin/cli.js --probe</code></pre>
+<p>Stuck on a step? <a href="https://wa.me/447473968685" data-wa-open rel="nofollow noopener" target="_blank">Get help on WhatsApp</a>.</p>
 <p>If you have Git installed, either of these does the same job:</p>
 <pre><code># Run it without keeping a copy
 npx github:televoiptv/iptv-line-checker --probe
@@ -450,7 +467,48 @@ console.log(await checkLine(line));</code></pre>
 </main>
 <footer>
 <p><a href="https://github.com/televoiptv/iptv-line-checker">Source code on GitHub</a> · <a href="https://github.com/televoiptv/iptv-line-checker/issues">Report a problem</a> · <a href="llms.txt">llms.txt</a> · MIT licence</p>
-<p>This is an independent diagnostic tool and is not linked to any IPTV provider, app or panel.</p>
+<p>This is a free diagnostic tool that works with lines from any provider, and it is not part of any app or panel. WhatsApp help comes from the person who maintains the tool, who also works in the IPTV business.</p>
 </footer>
+<div class="wa" id="wa">
+<div class="wa-panel" id="wa-panel" role="dialog" aria-labelledby="wa-title" hidden>
+<div class="wa-head"><strong id="wa-title">What are you stuck on?</strong><button type="button" id="wa-close" aria-label="Close help">×</button></div>
+<p>Pick one and WhatsApp opens with your question ready to send.</p>
+<div id="wa-topics">
+<a data-topic="run" data-msg="Hi, I need help running the IPTV Line Checker. My computer is: " rel="nofollow noopener" target="_blank">I can't get the tool running</a>
+<a data-topic="result" data-msg="Hi, I ran the IPTV Line Checker and need help with the result. The message it showed was: " rel="nofollow noopener" target="_blank">I don't understand my result</a>
+<a data-topic="link" data-msg="Hi, I can't find my M3U link or Xtream Codes login for the IPTV Line Checker. My IPTV app or device is: " rel="nofollow noopener" target="_blank">I can't find my link or login</a>
+<a data-topic="fault" data-msg="Hi, my IPTV is not working and I need help finding the fault. The problem is: " rel="nofollow noopener" target="_blank">My IPTV is not working</a>
+</div>
+<p class="wa-warn"><strong>Never send your password or full link in the chat.</strong></p>
+</div>
+<span class="wa-tip" id="wa-tip" hidden>Stuck? Get help here</span>
+<a class="wa-btn" id="wa-btn" href="https://wa.me/447473968685?text=Hi%2C%20I%20need%20help%20with%20the%20IPTV%20Line%20Checker." aria-label="Get help on WhatsApp" rel="nofollow noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.43 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41"/></svg></a>
+</div>
+<script>
+(function(){
+var num="447473968685",
+  wa=document.getElementById("wa"),btn=document.getElementById("wa-btn"),panel=document.getElementById("wa-panel"),
+  tip=document.getElementById("wa-tip"),list=document.getElementById("wa-topics"),tipTimer;
+var sectionTopic={run:"run",results:"result","find-link":"link",formats:"link",expiry:"result",connections:"result",troubleshoot:"fault"};
+function store(set){try{if(set)sessionStorage.setItem("wa-tip","1");else return sessionStorage.getItem("wa-tip")}catch(e){}}
+list.querySelectorAll("a").forEach(function(a){a.href="https://wa.me/"+num+"?text="+encodeURIComponent(a.dataset.msg);a.addEventListener("click",close)});
+function currentSection(){var id="",hs=document.querySelectorAll("main h2[id]");
+  for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<innerHeight*.5)id=hs[i].id}return id}
+function open(from){hideTip();store(true);
+  var first=list.querySelector('[data-topic="'+(sectionTopic[currentSection()]||"run")+'"]');
+  list.prepend(first);panel.hidden=false;btn.setAttribute("aria-expanded","true");panel.opener_=from||btn;first.focus()}
+function close(){if(panel.hidden)return;panel.hidden=true;btn.setAttribute("aria-expanded","false");(panel.opener_||btn).focus()}
+function hideTip(){tip.hidden=true;clearTimeout(tipTimer)}
+function showTip(){if(store()||!panel.hidden)return;store(true);tip.hidden=false;tipTimer=setTimeout(hideTip,8000)}
+btn.setAttribute("role","button");btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-controls","wa-panel");
+btn.addEventListener("click",function(e){e.preventDefault();panel.hidden?open():close()});
+document.querySelectorAll("[data-wa-open]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();open(a)})});
+document.getElementById("wa-close").addEventListener("click",close);
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+document.addEventListener("click",function(e){if(!panel.hidden&&!wa.contains(e.target)&&!e.target.closest("[data-wa-open]"))close()});
+setTimeout(showTip,20000);
+if("IntersectionObserver"in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();setTimeout(showTip,6000)}});io.observe(document.getElementById("run"))}
+})();
+</script>
 </body>
 </html>
